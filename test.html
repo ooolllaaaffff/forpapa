@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>LocalStorage Demo</title>
+
+  <script>
+    // В самом начале кладём данные в demoData
+    const demoObject = {
+      time: new Date().toLocaleString(),
+      message: "Привет из LocalStorage!"
+    };
+    localStorage.setItem("demoData", JSON.stringify(demoObject));
+
+    // Читаем все нужные ключи (как строки)
+    const demoDataValue = localStorage.getItem("demoData");
+    const userValue = localStorage.getItem("user");
+    const isMobileValue = localStorage.getItem("isMobile");
+
+    // Делаем доступным для body
+    window.pageData = {
+      demoDataValue,
+      userValue,
+      isMobileValue
+    };
+  </script>
+</head>
+<body>
+  <h1>LocalStorage</h1>
+
+  <h2>demoData</h2>
+  <p id="demo"></p>
+
+  <h2>user</h2>
+  <p id="user"></p>
+
+  <h2>isMobile</h2>
+  <p id="isMobile"></p>
+
+  <script>
+    // demoData всегда есть, мы её только что записали
+    document.getElementById("demo").textContent =
+      window.pageData.demoDataValue ?? "Ошибка: demoData отсутствует";
+
+    // user
+    document.getElementById("user").textContent =
+      window.pageData.userValue !== null
+        ? window.pageData.userValue
+        : "Нет данных (ключ user отсутствует)";
+
+    // isMobile
+    document.getElementById("isMobile").textContent =
+      window.pageData.isMobileValue !== null
+        ? window.pageData.isMobileValue
+        : "Нет данных (ключ isMobile отсутствует)";
+  </script>
+</body>
+</html>
